@@ -5,12 +5,15 @@ import 'dart:convert';
 Uri request = Uri.parse("https://api.hgbrasil.com/finance?key=d990ecda");
 
 void main() async {
-  http.Response response = await http.get(request);
-  print(json.decode(response.body));
-
   runApp(MaterialApp(
     home: Home(),
   ));
+}
+
+Future<Map> getData() async {
+  http.Response response = await http.get(request);
+
+  return json.decode(response.body);
 }
 
 class Home extends StatefulWidget {
@@ -22,8 +25,12 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.amber[700],
       appBar: AppBar(
         title: Text("Currency Converter"),
+        shadowColor: Colors.transparent,
+        backgroundColor: Colors.amber[700],
+        centerTitle: true,
       ),
       body: Column(
         children: <Widget>[
