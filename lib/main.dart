@@ -43,8 +43,24 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  double dolar;
+  final realController = TextEditingController();
+  final dollarController = TextEditingController();
+  final euroController = TextEditingController();
+
+  double dollar;
   double euro;
+
+  void _handleRealChanged(String value) {
+    print("Real $value");
+  }
+
+  void _handleDollarChanged(String value) {
+    print("Dollar $value");
+  }
+
+  void _handleEuroChanged(String value) {
+    print("Euro $value");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +98,7 @@ class _HomeState extends State<Home> {
                   ),
                 );
               } else {
-                dolar = snapshot.data["results"]["currencies"]["USD"]["buy"];
+                dollar = snapshot.data["results"]["currencies"]["USD"]["buy"];
                 euro = snapshot.data["results"]["currencies"]["EUR"]["buy"];
 
                 return SingleChildScrollView(
@@ -99,53 +115,20 @@ class _HomeState extends State<Home> {
                         height: 32,
                         color: Colors.transparent,
                       ),
-                      TextField(
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          labelText: "Brazilian real",
-                          labelStyle: TextStyle(color: Colors.white),
-                          border: OutlineInputBorder(),
-                          prefixText: "R\$ ",
-                        ),
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 25,
-                        ),
-                      ),
+                      buildTextField("Brazilian real", "R\$ ", realController,
+                          _handleRealChanged),
                       Divider(
                         height: 16,
                         color: Colors.transparent,
                       ),
-                      TextField(
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          labelText: "United States dollar",
-                          labelStyle: TextStyle(color: Colors.white),
-                          border: OutlineInputBorder(),
-                          prefixText: "US\$ ",
-                        ),
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 25,
-                        ),
-                      ),
+                      buildTextField("United States dollar", "US\$ ",
+                          dollarController, _handleDollarChanged),
                       Divider(
                         height: 16,
                         color: Colors.transparent,
                       ),
-                      TextField(
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          labelText: "Euro",
-                          labelStyle: TextStyle(color: Colors.white),
-                          border: OutlineInputBorder(),
-                          prefixText: "€ ",
-                        ),
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 25,
-                        ),
-                      ),
+                      buildTextField(
+                          "Euro", "€ ", euroController, _handleEuroChanged),
                     ],
                   ),
                 );
@@ -155,4 +138,23 @@ class _HomeState extends State<Home> {
       ),
     );
   }
+}
+
+Widget buildTextField(String label, String prefix,
+    TextEditingController controller, Function onChanged) {
+  return TextField(
+    controller: controller,
+    onChanged: onChanged,
+    keyboardType: TextInputType.number,
+    decoration: InputDecoration(
+      labelText: label,
+      labelStyle: TextStyle(color: Colors.white),
+      border: OutlineInputBorder(),
+      prefixText: prefix,
+    ),
+    style: TextStyle(
+      color: Colors.white,
+      fontSize: 25,
+    ),
+  );
 }
