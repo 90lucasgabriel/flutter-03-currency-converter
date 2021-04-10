@@ -13,7 +13,7 @@
   - [6. References](#6-references)
 
 ## 1. Introduction
-Currency convert with current quote (brazilian real, united states dollar and euro) by [HG Finance API](https://hgbrasil.com/status/finance)_[1]_.
+Currency convert with current quote (brazilian real, United States dollar and euro) by [HG Finance API](https://hgbrasil.com/status/finance) _[1]_.
 
 <div align="center" style="height: 300px; overflow: hidden">
   https://www.loom.com/share/31dad37f2fe947bbbbc7a83098afeb3e
