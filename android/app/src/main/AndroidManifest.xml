@@ -1,7 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.com.lucasgabriel.currency_converter.currency_converter">
+
+   <uses-permission android:name="android.permission.INTERNET" />
+
    <application
-        android:label="currency_converter"
+        android:label="Currency Converter"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
