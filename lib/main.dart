@@ -50,16 +50,46 @@ class _HomeState extends State<Home> {
   double dollar;
   double euro;
 
+  void _clearAll() {
+    realController.text = "";
+    dollarController.text = "";
+    euroController.text = "";
+  }
+
   void _handleRealChanged(String value) {
-    print("Real $value");
+    if (value.isEmpty) {
+      _clearAll();
+      return;
+    }
+
+    double parsedValue = double.parse(value);
+
+    dollarController.text = (parsedValue / dollar).toStringAsFixed(2);
+    euroController.text = (parsedValue / euro).toStringAsFixed(2);
   }
 
   void _handleDollarChanged(String value) {
-    print("Dollar $value");
+    if (value.isEmpty) {
+      _clearAll();
+      return;
+    }
+
+    double parsedValue = double.parse(value);
+
+    realController.text = (parsedValue * dollar).toStringAsFixed(2);
+    euroController.text = (parsedValue * dollar / euro).toStringAsFixed(2);
   }
 
   void _handleEuroChanged(String value) {
-    print("Euro $value");
+    if (value.isEmpty) {
+      _clearAll();
+      return;
+    }
+
+    double parsedValue = double.parse(value);
+
+    realController.text = (parsedValue * euro).toStringAsFixed(2);
+    dollarController.text = (parsedValue * euro / dollar).toStringAsFixed(2);
   }
 
   @override
@@ -145,7 +175,7 @@ Widget buildTextField(String label, String prefix,
   return TextField(
     controller: controller,
     onChanged: onChanged,
-    keyboardType: TextInputType.number,
+    keyboardType: TextInputType.numberWithOptions(decimal: true),
     decoration: InputDecoration(
       labelText: label,
       labelStyle: TextStyle(color: Colors.white),
